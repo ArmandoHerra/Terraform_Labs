@@ -3,13 +3,13 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-2"
+  region  = "us-east-2"
   version = "~> 2.0"
 }
 
 resource "aws_s3_bucket" "terraform_state" {
 
-  bucket = var.bucket_name
+  bucket        = var.bucket_name
   force_destroy = true
 
   # Enable versioning so we can see the full revision history of our state files
@@ -37,3 +37,13 @@ resource "aws_dynamodb_table" "terraform_locks" {
     type = "S"
   }
 }
+
+# terraform {
+#   backend "s3" {
+#     bucket         = "ah-example-state-bucket"
+#     key            = "global/s3/terraform.tfstate"
+#     region         = "us-east-1"
+#     dynamodb_table = "ah-example-locks-table"
+#     encrypt        = true
+#   }
+# }
